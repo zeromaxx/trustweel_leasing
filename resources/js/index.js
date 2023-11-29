@@ -1,16 +1,16 @@
 require("./bootstrap");
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/Navbar";
+import Fleet from "./components/Fleet";
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
     <React.StrictMode>
         <Router>
             <NavBar/>
-            <App />
+            <Fleet/>
         </Router>
     </React.StrictMode>
 );

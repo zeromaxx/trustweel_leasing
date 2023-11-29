@@ -1,1 +1,228 @@
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Roboto&display=swap);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+.header a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+}
+.header .logo img {
+  height: 50px;
+}
+.header .nav-menu {
+  display: flex;
+  list-style-type: none;
+}
+.header .search-and-user {
+  display: flex;
+  align-items: center;
+}
+
+.fleet .card {
+  width: 18rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.fleet .card img {
+  width: 100%;
+  height: auto;
+}
+.fleet .card .card-body {
+  text-align: center;
+}
+.fleet .card .card-body .card-title {
+  color: #333;
+  font-weight: bold;
+}
+.fleet .card .card-body .price {
+  color: #ff0000;
+  font-size: 2em;
+}
+.fleet .card .card-body .old-price {
+  text-decoration: line-through;
+  color: #999;
+}
+.fleet .card .card-body .vat {
+  color: #999;
+  font-size: 0.8em;
+}
+.fleet .card .card-top-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.fleet .card .card-top-actions .badge {
+  font-size: 0.8em;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.fleet .btn-view-offer {
+  background-color: #ff4500;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 24px;
+}
+.fleet .btn-view-offer:hover {
+  background-color: #ff6347;
+}
+
+.color-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  /* Adjust or remove border as needed */
+}
+
+.spec-table {
+  margin-top: 20px;
+}
+
+.spec-table td {
+  padding: 5px 10px;
+}
+
+.spec-table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.show-more {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+}
+
+.heart-icon {
+  float: right;
+  color: #ff0000;
+  cursor: pointer;
+}
+
+.product-detail-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pricing-card {
+  background-color: #f8f9fa;
+  /* Light gray background */
+  border-radius: 15px;
+  padding: 20px;
+  width: 350px;
+  /* Adjust width as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.price {
+  font-size: 48px;
+  color: #333;
+}
+
+.old-price {
+  font-size: 20px;
+  text-decoration: line-through;
+  color: #999;
+}
+
+.vat {
+  font-size: 16px;
+  color: #666;
+}
+
+.interest-button {
+  background-color: #ff7f50;
+  /* Coral color */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.interest-button:hover {
+  background-color: #ff6347;
+  /* Tomato color */
+}
+
+.badge {
+  padding: 5px 10px;
+  background-color: #ff4500;
+  color: white;
+  font-size: 14px;
+  border-radius: 20px;
+  float: right;
+}
+
+.spec-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.spec-list li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #ff4500;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ff4500;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.info-icon {
+  font-size: 20px;
+  color: #ff4500;
+  cursor: pointer;
+}
