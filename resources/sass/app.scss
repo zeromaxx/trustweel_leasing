@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Roboto&display=swap");
+
+$primary-color: #ff4500;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: "Open Sans", sans-serif;
 }
@@ -14,22 +18,27 @@ body {
     align-items: center;
     padding: 10px;
     background-color: #f8f8f8;
+
     a {
         text-decoration: none;
         color: #333;
         font-weight: bold;
     }
+
     .logo {
         display: flex;
         align-items: center;
+
         img {
             height: 50px;
         }
     }
+
     .nav-menu {
         display: flex;
         list-style-type: none;
     }
+
     .search-and-user {
         display: flex;
         align-items: center;
@@ -47,29 +56,36 @@ body {
             width: 100%;
             height: auto;
         }
+
         .card-body {
             text-align: center;
+
             .card-title {
                 color: #333;
                 font-weight: bold;
             }
+
             .price {
                 color: #ff0000;
                 font-size: 2em;
             }
+
             .old-price {
                 text-decoration: line-through;
                 color: #999;
             }
+
             .vat {
                 color: #999;
                 font-size: 0.8em;
             }
         }
+
         .card-top-actions {
             display: flex;
             justify-content: space-between;
             padding: 10px;
+
             .badge {
                 font-size: 0.8em;
                 padding: 5px 10px;
@@ -84,6 +100,7 @@ body {
         border-radius: 20px;
         border: none;
         padding: 10px 24px;
+
         &:hover {
             background-color: #ff6347;
         }
@@ -229,4 +246,39 @@ body {
     font-size: 20px;
     color: #ff4500;
     cursor: pointer;
+}
+
+// Login Styling
+
+.login-wrapper {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+    h2 {
+        color: $primary-color;
+    }
+
+    .btn {
+        &.btn-default {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            border: 0;
+            color: white;
+            background: #ff4500;
+            padding: 12px;
+        }
+    }
+
+    .form-control {
+        border-radius: 0;
+        height: 3rem;
+        outline: none;
+        border: 1px solid #c9cace;
+    }
+
 }
