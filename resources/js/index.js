@@ -3,14 +3,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/Navbar";
-import Fleet from "./components/Fleet";
+import App from "./app";
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
     <React.StrictMode>
         <Router>
             <NavBar/>
-            <Fleet/>
+            <App/>
         </Router>
     </React.StrictMode>
 );
