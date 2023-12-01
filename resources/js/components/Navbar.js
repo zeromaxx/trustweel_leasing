@@ -20,6 +20,9 @@ function NavBar() {
                             <li className="ms-3">
                                 <Link to="/login">Login</Link>
                             </li>
+                            <li className="ms-3">
+                                <Link to="/register">Register</Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="col-4">
