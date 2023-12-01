@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Roboto&display=swap");
 
-$primary-color: #ff4500;
+$primary-color: #f06400;
 
 * {
     margin: 0;
@@ -10,6 +10,12 @@ $primary-color: #ff4500;
 
 body {
     font-family: "Open Sans", sans-serif;
+}
+
+section {
+    min-height: calc(100vh - 70px);
+    display: grid;
+    place-items: center;
 }
 
 .header {
@@ -151,11 +157,9 @@ body {
 
 .pricing-card {
     background-color: #f8f9fa;
-    /* Light gray background */
     border-radius: 15px;
     padding: 20px;
     width: 350px;
-    /* Adjust width as needed */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -177,7 +181,6 @@ body {
 
 .interest-button {
     background-color: #ff7f50;
-    /* Coral color */
     color: white;
     border: none;
     border-radius: 25px;
@@ -188,7 +191,6 @@ body {
 
 .interest-button:hover {
     background-color: #ff6347;
-    /* Tomato color */
 }
 
 .badge {
@@ -269,7 +271,7 @@ body {
             cursor: pointer;
             border: 0;
             color: white;
-            background: #ff4500;
+            background: $primary-color;
             padding: 12px;
         }
     }
