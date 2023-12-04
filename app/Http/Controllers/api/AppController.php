@@ -12,4 +12,10 @@ class AppController extends Controller
         $cars = Car::all();
         return response()->json($cars);
     }
+
+    public function details($id)
+    {
+        $car = Car::where('id', $id)->first();
+        return response()->json($car);
+    }
 }
