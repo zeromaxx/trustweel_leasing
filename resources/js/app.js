@@ -4,7 +4,8 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import CarDetails from "./components/CarDetails";
-import NotFoundPage from './components/NotFoundPage'
+import NotFoundPage from './components/NotFoundPage';
+import Contact from "./components/Contact";
 
 function App() {
     return (
@@ -12,8 +13,9 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path="/contact" element={<Contact/>} />
             <Route path="/cars/:id" element={<CarDetails />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route path="*" element={<NotFoundPage />} />
         </Routes>
     );
 }
