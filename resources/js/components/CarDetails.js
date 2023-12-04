@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function CarDetails() {
     const { id } = useParams();
@@ -80,7 +81,12 @@ export default function CarDetails() {
                             185 € <span className="old-price">{carDetails.price} €</span>{" "}
                             <span className="vat">+VAT</span>
                         </div>
-                        <button className="interest-button">I'm interested</button>
+                        {/* <Link to={`/api/car-get-quote`} className="interest-button">
+                            I'm interested
+                        </Link> */}
+                         <Link to={`/contact`} className="interest-button">
+                            I'm interested
+                        </Link>
                         <ul className="spec-list mt-4">
                             <li>
                                 <span>Duration</span>
