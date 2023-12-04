@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Car from "../../../public/img/car.webp";
+import { Link } from "react-router-dom";
 
 export default function Fleet() {
     const [cars, setCars] = useState([]);
@@ -19,10 +20,8 @@ export default function Fleet() {
             <div className="container">
                 <div className="row">
                     {cars.map((car) => (
-                        // <li key={car.id}>
-                        //     {car.name} - {car.model}
-                        // </li>
                         <div key={car.id} className="col-md-3">
+
                             <div className="card mx-auto my-5">
                                 <div className="card-top-actions">
                                     <span className="badge bg-secondary">
@@ -45,9 +44,9 @@ export default function Fleet() {
                                         {car.price}€{" "}
                                         <span className="vat">+VAT</span>
                                     </p>
-                                    <a href="#" className="btn btn-view-offer">
+                                    <Link to={`/cars/${car.id}`} className="btn btn-view-offer">
                                         View this offer
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
