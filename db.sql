@@ -14,3 +14,12 @@ INSERT INTO cars (name, price, stock, model) VALUES ('BMW 3 Series', 41000.00, 4
 INSERT INTO cars (name, price, stock, model) VALUES ('Mercedes-Benz C-Class', 43000.00, 6, 'C300');
 INSERT INTO cars (name, price, stock, model) VALUES ('Audi A4', 39000.00, 5, 'Premium');
 INSERT INTO cars (name, price, stock, model) VALUES ('Tesla Model 3', 48000.00, 2, 'Standard Range Plus');
+
+CREATE TABLE `users` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at timestamp NULL DEFAULT NULL,
+    updated_at timestamp NULL DEFAULT NULL,
+    deleted_at timestamp NULL DEFAULT NULL
+)
