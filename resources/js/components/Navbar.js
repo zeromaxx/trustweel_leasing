@@ -1,8 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoImage from "../../../public/img/LPALDlogoheader.webp";
 
 function NavBar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        fetch('api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // navigate('/login');
+            })
+            .catch(error => console.error('Error:', error));
+    };
     return (
         <div className="header">
             <div className="container">
@@ -22,6 +38,10 @@ function NavBar() {
                             </li>
                             <li className="ms-3">
                                 <Link to="/register">Register</Link>
+                            </li>
+                            <li className="ms-3">
+                                <button onClick={handleLogout} className="btn btn-link">Logout</button>
+                                {/* Alternatively, use <a href="#" onClick={handleLogout}>Logout</a> */}
                             </li>
                         </ul>
                     </div>
