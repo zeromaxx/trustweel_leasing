@@ -24,9 +24,10 @@ export default function Register() {
             .then(data => {
                 console.log('Success:', data);
                 if (data.success) {
-                    setSuccess(data.message); // Set success message
+                    setSuccess(data.message);
+                    setUsername('');
+                    setPassword('');
                 } else {
-                    // Handle errors
                 }
             })
             .catch((error) => {
