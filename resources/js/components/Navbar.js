@@ -1,9 +1,12 @@
 import React from "react";
+import { useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import LogoImage from "../../../public/img/LPALDlogoheader.webp";
+import { AuthContext } from "./AuthContext";
 
 function NavBar() {
     const navigate = useNavigate();
+    const { isLoggedIn, logOut } = useContext(AuthContext);
 
     const handleLogout = () => {
         fetch('api/logout', {
@@ -14,6 +17,7 @@ function NavBar() {
         })
             .then(response => response.json())
             .then(data => {
+                logOut();
                 console.log(data.message);
                 // navigate('/login');
             })
@@ -33,16 +37,17 @@ function NavBar() {
                             <li>
                                 <Link to="/">Home</Link>
                             </li>
-                            <li className="ms-3">
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li className="ms-3">
-                                <Link to="/register">Register</Link>
-                            </li>
-                            <li className="ms-3">
-                                <button onClick={handleLogout} className="btn btn-link">Logout</button>
-                                {/* Alternatively, use <a href="#" onClick={handleLogout}>Logout</a> */}
-                            </li>
+                            {!isLoggedIn && (
+                                <>
+                                    <li className="ms-3"><Link to="/login">Login</Link></li>
+                                    <li className="ms-3"><Link to="/register">Register</Link></li>
+                                </>
+                            )}
+                            {isLoggedIn && (
+                                <li className="ms-3">
+                                    <button onClick={handleLogout}>Logout</button>
+                                </li>
+                            )}
                         </ul>
                     </div>
                     <div className="col-4">
