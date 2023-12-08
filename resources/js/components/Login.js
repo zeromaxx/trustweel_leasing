@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import LogoImage from "../../../public/img/LPALDlogoheader.webp";
 import SuccessMessage from './SuccessMessage';
+import { AuthContext } from './AuthContext';
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState(null);
+    const { logIn } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,6 +29,7 @@ export default function Login() {
                     setSuccess(data.message);
                     setUsername('');
                     setPassword('');
+                    logIn();
                 } else {
                 }
             })
