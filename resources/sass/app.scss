@@ -43,11 +43,16 @@ section {
     text-transform: uppercase;
     font-weight: 600;
     text-decoration: none;
-    transition: all ease-in 0.3s;
     &.btn-small {
         text-transform: none;
         height: 36px;
         max-width: 94px;
+        &.btn-edit {
+            background: #feb300;
+        }
+        &.btn-red {
+            background: #e62739;
+        }
     }
     &:hover {
         box-shadow: 3px 3px 9px rgba(55, 170, 247, 0.3);
@@ -370,7 +375,4 @@ input:focus {
     color: #6c757d;
     text-decoration: none;
 }
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-}
+

@@ -6941,7 +6941,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var _public_img_1_1_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/img/1-1.jpg */ "./public/img/1-1.jpg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -6952,78 +6954,82 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Dashboard() {
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useNavigate)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     cars = _useState2[0],
     setCars = _useState2[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetch("api/cars").then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      setCars(data);
-    })["catch"](function (error) {
-      return console.error("Error:", error);
-    });
+    var token = localStorage.getItem("token");
+    var role = localStorage.getItem("role");
+    if (!token || role !== "admin") {
+      navigate("/login");
+    } else {
+      fetch("api/cars").then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data);
+        setCars(data);
+      })["catch"](function (error) {
+        return console.error("Error:", error);
+      });
+    }
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "sidebar",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
-        className: "nav flex-column",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-          className: "nav-item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
-            className: "sidebar-link",
-            href: "#",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-              xmlns: "http://www.w3.org/2000/svg",
-              enableBackground: "new 0 0 1000 1000",
-              version: "1.1",
-              viewBox: "0 0 1000 1000",
-              xmlSpace: "preserve",
-              width: "32",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-                fill: "#6c757d",
-                d: "M284.353 608.065c7.629 0 13.858-5.995 14.228-13.532.013-.236.019-.474.019-.712 0-7.867-6.379-14.246-14.246-14.246-7.867 0-14.246 6.379-14.246 14.246 0 .238.007.476.019.712.369 7.537 6.598 13.532 14.226 13.532zM729.354 579.575c-7.867 0-14.246 6.379-14.246 14.246 0 .238.007.476.019.712.37 7.537 6.599 13.532 14.228 13.532s13.858-5.995 14.228-13.532c.013-.236.018-.474.018-.712-.001-7.867-6.38-14.246-14.247-14.246z"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-                fill: "#6c757d",
-                d: "M172.624 597.235h43.569c1.77 36.11 31.61 64.83 68.16 64.83s66.391-28.72 68.16-64.83h308.68c1.771 36.11 31.61 64.83 68.16 64.83s66.391-28.72 68.16-64.83h35.71c4.01 0 7.65-1.8 10.28-4.7 2.63-2.9 4.26-6.9 4.26-11.33 0-3.81-1.229-7.5-3.479-10.4l-7.41-9.57c16.55-37.48 10.75-91.19 5.229-122.11-3.17-17.81-12.899-33.38-26.93-42.87-16.811-11.38-45.44-26.93-92.63-43.51-93.92-32.99-259.95-4.32-292.641 22.5-26.05 21.36-77.59 72-142.92 79.5-33.949 3.89-63.02 13.82-83.12 22.47-17.89 7.69-29.859 26.44-30.51 47.59l-.71 22.93-11.33 8.33c-2.84 2.09-5.109 4.88-6.67 8.1-1.56 3.21-2.41 6.85-2.41 10.6.001 12.41 9.131 22.47 20.392 22.47zm599.84 0c-1.74 22.25-20.41 39.83-43.11 39.83s-41.37-17.58-43.109-39.83a42.145 42.145 0 01-.141-3.41c0-23.85 19.4-43.25 43.25-43.25 23.851 0 43.25 19.4 43.25 43.25 0 1.15-.05 2.29-.14 3.41zm55.247-109.46c3.336.69 5.771 3.549 5.956 6.95.821 15.131-1.424 30.716-2.923 39.046a7.463 7.463 0 01-7.353 6.137h-4.998c-4.402 0-7.851-3.787-7.439-8.17l3.002-32.026a7.466 7.466 0 011.895-4.311l4.802-5.316a7.469 7.469 0 017.058-2.31zM681.14 418.279l5.027-23.402a24.21 24.21 0 0121.145-18.993l4.264-.448c.896.297 1.808.588 2.683.895 46.205 16.234 72.761 31.053 86.901 40.625 8.388 5.674 14.338 15.349 16.331 26.549.243 1.362.478 2.718.703 4.069H704.81a24.21 24.21 0 01-23.67-29.295zm-103.452 83.629h-25a8.5 8.5 0 110-17h25a8.5 8.5 0 010 17zm-142.012-98.819c3.835-3.277 7.146-6.108 10.079-8.512 4.355-3.573 22.641-12.418 60.703-20.347 31.671-6.597 66.803-10.498 100.046-11.177l-11.623 66.681c-2.934 16.83-17.209 29.335-34.278 30.028l-173.586 7.045a36.285 36.285 0 01-26.45-9.948c31.52-16.536 56.982-38.28 75.109-53.77zM284.353 550.575c23.851 0 43.25 19.4 43.25 43.25 0 1.15-.05 2.29-.14 3.41-1.74 22.25-20.41 39.83-43.11 39.83s-41.37-17.58-43.109-39.83a42.145 42.145 0 01-.141-3.41c.001-23.85 19.401-43.25 43.25-43.25zm-84.833-48c6.812 0 12.333 8.357 12.333 18.667 0 10.309-5.521 18.667-12.333 18.667-6.811 0-12.333-8.357-12.333-18.667.001-10.31 5.522-18.667 12.333-18.667z"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: "ms-2",
-              children: "Fleet"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "container mt-5",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+        className: "table table-responsive table-bordered",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "Image"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "Price"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "Stock"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              children: "Actions"
             })]
           })
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      "class": "main-content",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "table table-responsive",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "Name"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "Name"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "Name"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              children: "Name"
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
           children: cars.map(function (car) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 children: car.name
-              })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                  src: _public_img_1_1_jpg__WEBPACK_IMPORTED_MODULE_1__["default"],
+                  className: "car-img",
+                  alt: "car",
+                  width: "50px"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                children: car.price
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+                children: car.stock
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+                className: "d-flex",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                  href: "!#",
+                  className: "btn-default btn-small btn-edit",
+                  children: "Edit"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                  href: "!#",
+                  className: "btn-default btn-small btn-red ms-2",
+                  children: "Delete"
+                })]
+              })]
             }, car.id);
           })
         })]
       })
-    })]
+    })
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
@@ -7114,7 +7120,7 @@ function Fleet() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                 src: _public_img_1_1_jpg__WEBPACK_IMPORTED_MODULE_1__["default"],
                 className: "card-img-top car-img",
-                alt: "Fiat 500"
+                alt: "car"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                 className: "body-card mt-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -7424,7 +7430,7 @@ function NavBar() {
       return response.json();
     }).then(function (data) {
       logOut();
-      navigate('/login');
+      navigate("/login");
     })["catch"](function (error) {
       return console.error("Error:", error);
     });
@@ -7468,7 +7474,13 @@ function NavBar() {
                   children: "Register"
                 })
               })]
-            }), isLoggedIn && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+            }), role === "admin" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+              className: "ms-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                to: "/dashboard",
+                children: "Dashboard"
+              })
+            }) : "", isLoggedIn && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
               className: "ms-3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
                 style: {
@@ -7477,13 +7489,7 @@ function NavBar() {
                 onClick: handleLogout,
                 children: "Logout"
               })
-            }), role === "admin" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-              className: "ms-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-                to: "/dashboard",
-                children: "Admin Dashboard"
-              })
-            }) : ""]
+            })]
           })
         })]
       })

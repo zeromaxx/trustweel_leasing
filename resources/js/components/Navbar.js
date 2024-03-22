@@ -17,7 +17,7 @@ function NavBar() {
             .then((response) => response.json())
             .then((data) => {
                 logOut();
-                navigate('/login');
+                navigate("/login");
             })
             .catch((error) => console.error("Error:", error));
     };
@@ -45,6 +45,13 @@ function NavBar() {
                                     </li>
                                 </>
                             )}
+                            {role === "admin" ? (
+                                <li className="ms-3">
+                                    <Link to="/dashboard">Dashboard</Link>
+                                </li>
+                            ) : (
+                                ""
+                            )}
                             {isLoggedIn && (
                                 <li className="ms-3">
                                     <a
@@ -54,13 +61,6 @@ function NavBar() {
                                         Logout
                                     </a>
                                 </li>
-                            )}
-                            {role === "admin" ? (
-                                <li className="ms-3">
-                                    <Link to="/dashboard">Admin Dashboard</Link>
-                                </li>
-                            ) : (
-                                ""
                             )}
                         </ul>
                     </div>

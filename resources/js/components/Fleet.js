@@ -24,7 +24,7 @@ export default function Fleet() {
                                 <img
                                     src={Car}
                                     className="card-img-top car-img"
-                                    alt="Fiat 500"
+                                    alt="car"
                                 />
                                 <div className="body-card mt-2">
                                     <div className="row">
