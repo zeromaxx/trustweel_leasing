@@ -20,7 +20,7 @@ export default function Fleet() {
                 <div className="row">
                     {cars.map((car) => (
                         <div key={car.id} className="col-md-4">
-                            <div className="car mx-auto my-5">
+                            <div className="car mx-auto my-4">
                                 <img
                                     src={Car}
                                     className="card-img-top car-img"

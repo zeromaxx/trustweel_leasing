@@ -1,14 +1,13 @@
 import React, { useState, useContext } from "react";
 import HeroImage from "../../../public/img/login-img.jpg";
-import { Link } from "react-router-dom";
-import SuccessMessage from "./SuccessMessage";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
 import { AuthContext } from "./AuthContext";
 
 export default function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(null);
     const [error, setError] = useState(null);
     const { logIn } = useContext(AuthContext);
 
@@ -28,14 +27,15 @@ export default function Login() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    setSuccess(data.message);
                     setEmail("");
                     setPassword("");
                     localStorage.setItem("role", data.role);
                     localStorage.setItem("token", data.token);
                     logIn(data.role);
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 500);
                 } else {
-                    console.log(data.message);
                     setError(data.message);
                 }
             })

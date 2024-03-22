@@ -6,6 +6,10 @@
   font-family: "Open Sans", sans-serif;
 }
 
+body {
+  padding-top: 70px;
+}
+
 :root {
   --main-color: #189cf4;
 }
@@ -85,6 +89,10 @@ input:focus {
   background: linear-gradient(1turn, #f1f6fd 30%, #edf1f7);
   box-shadow: 3px 3px 9px rgba(164, 164, 186, 0.2);
   height: 70px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 .header a {
   text-decoration: none;
@@ -328,4 +336,31 @@ input:focus {
 .sign__form .sign__text a {
   text-decoration: none;
   color: var(--main-color);
+}
+
+.sidebar {
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0;
+  background-color: white;
+  box-shadow: 3px 3px 9px rgba(164, 164, 186, 0.2);
+  width: 250px;
+}
+
+.sidebar ul.nav flex-column {
+  padding-left: 0;
+}
+
+.sidebar-link {
+  padding: 0.5rem 0.5rem;
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
 }

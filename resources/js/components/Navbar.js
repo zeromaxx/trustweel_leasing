@@ -1,7 +1,6 @@
 import React from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LogoImage from "../../../public/img/LPALDlogoheader.webp";
 import { AuthContext } from "./AuthContext";
 
 function NavBar() {
@@ -18,8 +17,7 @@ function NavBar() {
             .then((response) => response.json())
             .then((data) => {
                 logOut();
-                console.log(data.message);
-                // navigate('/login');
+                navigate('/login');
             })
             .catch((error) => console.error("Error:", error));
     };

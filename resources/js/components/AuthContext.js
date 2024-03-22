@@ -5,12 +5,9 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [role, setRole] = useState("");
 
-    const logIn = () => {
+    const logIn = (userRole) => {
         setIsLoggedIn(true);
-        const savedRole = localStorage.getItem("role");
-        if (savedRole) {
-            setRole(savedRole);
-        }
+        setRole(userRole);
     };
 
     const logOut = () => {
@@ -22,8 +19,12 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+        const savedRole = localStorage.getItem("role");
         if (token) {
             setIsLoggedIn(true);
+            if (savedRole) {
+                setRole(savedRole);
+            }
         }
     }, []);
 
