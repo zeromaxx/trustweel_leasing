@@ -17,7 +17,7 @@ INSERT INTO cars (name, price, stock, model) VALUES ('Tesla Model 3', 48000.00, 
 
 CREATE TABLE `users` (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at timestamp NULL DEFAULT NULL,
     updated_at timestamp NULL DEFAULT NULL,

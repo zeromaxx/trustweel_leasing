@@ -149,6 +149,9 @@ input:focus {
 .fleet .car-favorite:hover svg {
   fill: #eb5757;
 }
+.fleet .body-card {
+  padding: 20px 10px 10px;
+}
 .fleet .footer-card {
   padding: 20px 10px 10px;
   margin-top: 10px;

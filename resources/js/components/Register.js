@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SuccessMessage from "./SuccessMessage";
 
 export default function Register() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(null);
 
@@ -17,7 +17,7 @@ export default function Register() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: username,
+                email: email,
                 password: password,
             }),
         })
@@ -26,7 +26,7 @@ export default function Register() {
                 console.log("Success:", data);
                 if (data.success) {
                     setSuccess(data.message);
-                    setUsername("");
+                    setEmail("");
                     setPassword("");
                 } else {
                 }
@@ -44,9 +44,9 @@ export default function Register() {
                         <input
                             type="text"
                             className=""
-                            placeholder="Your Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Your Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="form-group mb-3">

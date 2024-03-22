@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\api;
+
 use App\Models\Car;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +29,7 @@ class AppController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|max:255|unique:users',
+            'email' => 'required|max:255|unique:users',
             'password' => 'required|min:6',
         ]);
 
@@ -40,7 +43,7 @@ class AppController extends Controller
 
         try {
             $user = User::create([
-                'username' => $request->username,
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
 
@@ -61,16 +64,23 @@ class AppController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials)) {
+
+            $token = JWTAuth::fromUser(Auth::user());
+
             $request->session()->regenerate();
+
+            $role = Auth::user()->role;
 
             return response()->json([
                 'success' => true,
                 'message' => 'User successfully logged in',
+                'token' => $token,
+                'role' => $role,
             ]);
         }
 

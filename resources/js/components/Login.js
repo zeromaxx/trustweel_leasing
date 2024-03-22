@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import HeroImage from "../../../public/img/login-img.jpg";
 import { Link } from "react-router-dom";
 import SuccessMessage from "./SuccessMessage";
+import ErrorMessage from "./ErrorMessage";
 import { AuthContext } from "./AuthContext";
 
 export default function Login() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
     const { logIn } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
@@ -19,7 +21,7 @@ export default function Login() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: username,
+                email: email,
                 password: password,
             }),
         })
@@ -27,10 +29,14 @@ export default function Login() {
             .then((data) => {
                 if (data.success) {
                     setSuccess(data.message);
-                    setUsername("");
+                    setEmail("");
                     setPassword("");
-                    logIn();
+                    localStorage.setItem("role", data.role);
+                    localStorage.setItem("token", data.token);
+                    logIn(data.role);
                 } else {
+                    console.log(data.message);
+                    setError(data.message);
                 }
             })
             .catch((error) => {
@@ -46,9 +52,9 @@ export default function Login() {
                         <input
                             type="text"
                             className=""
-                            placeholder="Your Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Your Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="form-group mb-3">
@@ -63,7 +69,7 @@ export default function Login() {
                     <button type="submit" className="btn-default">
                         sign in
                     </button>
-                    {success && <SuccessMessage message={success} />}
+                    {error && <ErrorMessage message={error} className="mt-3" />}
                     <span className="sign__text">
                         Don't have an account?{" "}
                         <Link to="/register">Sign Up!</Link>

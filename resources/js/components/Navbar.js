@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext";
 
 function NavBar() {
     const navigate = useNavigate();
-    const { isLoggedIn, logOut } = useContext(AuthContext);
+    const { isLoggedIn, logOut, role } = useContext(AuthContext);
 
     const handleLogout = () => {
         fetch("api/logout", {
@@ -49,10 +49,20 @@ function NavBar() {
                             )}
                             {isLoggedIn && (
                                 <li className="ms-3">
-                                    <button onClick={handleLogout}>
+                                    <a
+                                        style={{ cursor: "pointer" }}
+                                        onClick={handleLogout}
+                                    >
                                         Logout
-                                    </button>
+                                    </a>
                                 </li>
+                            )}
+                            {role === "admin" ? (
+                                <li className="ms-3">
+                                    <Link to="/dashboard">Admin Dashboard</Link>
+                                </li>
+                            ) : (
+                                ""
                             )}
                         </ul>
                     </div>

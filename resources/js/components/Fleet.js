@@ -10,7 +10,6 @@ export default function Fleet() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setCars(data);
             })
             .catch((error) => console.error("Error:", error));
@@ -27,7 +26,7 @@ export default function Fleet() {
                                     className="card-img-top car-img"
                                     alt="Fiat 500"
                                 />
-                                <div className="body-card mt-3">
+                                <div className="body-card mt-2">
                                     <div className="row">
                                         <div className="col-md-6">
                                             <h5 className="card-title">

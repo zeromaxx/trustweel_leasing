@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
 
-function SuccessMessage({ message }) {
+function SuccessMessage({ message, className }) {
     return (
-        <div className="alert alert-success" role="alert">
+        <div
+            className={className + " alert alert-success text-center"}
+            role="alert"
+        >
             {message}
         </div>
     );
