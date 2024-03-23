@@ -8724,6 +8724,18 @@ function Dashboard() {
     _useState6 = _slicedToArray(_useState5, 2),
     currentCar = _useState6[0],
     setCurrentCar = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    showCreateModal = _useState8[0],
+    setShowCreateModal = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      name: "",
+      price: "",
+      stock: ""
+    }),
+    _useState10 = _slicedToArray(_useState9, 2),
+    newCar = _useState10[0],
+    setNewCar = _useState10[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var token = localStorage.getItem("token");
     var role = localStorage.getItem("role");
@@ -8739,6 +8751,14 @@ function Dashboard() {
       });
     }
   }, []);
+  var handleNewCarChange = function handleNewCarChange(e) {
+    var _e$target = e.target,
+      name = _e$target.name,
+      value = _e$target.value;
+    setNewCar(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+    });
+  };
   var handleEditClick = function handleEditClick(carId) {
     fetch("api/cars/".concat(carId)).then(function (response) {
       return response.json();
@@ -8749,10 +8769,31 @@ function Dashboard() {
       return console.error("Error:", error);
     });
   };
+  var handleDeleteClick = function handleDeleteClick(carId) {
+    if (window.confirm("Are you sure you want to delete this vehicle?")) {
+      fetch("api/cars/".concat(carId), {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        if (response.ok) {
+          var updatedCars = cars.filter(function (car) {
+            return car.id !== carId;
+          });
+          setCars(updatedCars);
+        } else {
+          throw new Error("Failed to delete the car.");
+        }
+      })["catch"](function (error) {
+        return console.error("Error:", error);
+      });
+    }
+  };
   var handleInputChange = function handleInputChange(e) {
-    var _e$target = e.target,
-      name = _e$target.name,
-      value = _e$target.value;
+    var _e$target2 = e.target,
+      name = _e$target2.name,
+      value = _e$target2.value;
     setCurrentCar(function (prevCar) {
       return _objectSpread(_objectSpread({}, prevCar), {}, _defineProperty({}, name, value));
     });
@@ -8780,10 +8821,37 @@ function Dashboard() {
       return console.error("Error:", error);
     });
   };
+  var createCar = function createCar() {
+    fetch("api/cars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newCar)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (createdCar) {
+      setCars(cars.concat(createdCar));
+      setShowCreateModal(false);
+    })["catch"](function (error) {
+      return console.error("Error:", error);
+    });
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "container mt-5",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "d-flex justify-content-between align-items-center mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+          children: "Our Fleet"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          className: "btn-default btn-small",
+          onClick: function onClick() {
+            return setShowCreateModal(true);
+          },
+          children: "Add Vehicle"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
         className: "table table-responsive table-bordered",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
@@ -8816,7 +8884,7 @@ function Dashboard() {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 children: car.stock
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-                className: "d-flex",
+                className: "d-flex justify-content-center",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
                   href: "#!",
                   className: "btn-default btn-small btn-edit text-dark",
@@ -8846,9 +8914,14 @@ function Dashboard() {
                     })
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+                  href: "#!",
                   className: "btn-default btn-small btn-red ms-2 text-dark",
                   style: {
                     gap: "6px"
+                  },
+                  onClick: function onClick(e) {
+                    e.preventDefault();
+                    handleDeleteClick(car.id);
                   },
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
                     xmlns: "http://www.w3.org/2000/svg",
@@ -8869,7 +8942,67 @@ function Dashboard() {
             }, car.id);
           })
         })]
-      })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      show: showCreateModal,
+      onHide: function onHide() {
+        return setShowCreateModal(false);
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Header, {
+        closeButton: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Title, {
+          children: "Create a new Car"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Body, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              htmlFor: "carName",
+              className: "form-label",
+              children: "Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+              type: "text",
+              className: "",
+              name: "name",
+              value: newCar.name,
+              onChange: handleNewCarChange
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              htmlFor: "carPrice",
+              className: "form-label",
+              children: "Price"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+              type: "text",
+              className: "",
+              name: "price",
+              value: newCar.price,
+              onChange: handleNewCarChange
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              htmlFor: "carStock",
+              className: "form-label",
+              children: "Stock"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+              type: "number",
+              className: "",
+              name: "stock",
+              value: newCar.stock,
+              onChange: handleNewCarChange
+            })]
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Footer, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          className: "btn-default btn-small",
+          onClick: createCar,
+          children: "Create"
+        })
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
       show: showModal,
       onHide: function onHide() {

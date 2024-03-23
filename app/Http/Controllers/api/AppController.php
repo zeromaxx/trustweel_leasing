@@ -27,6 +27,18 @@ class AppController extends Controller
         return response()->json($car);
     }
 
+    public function createCar(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+        ]);
+
+        $car = Car::create($validatedData);
+        return response()->json($car, 201);
+    }
+
     public function updateCar(Request $request, $id)
     {
         $validated = $request->validate([
@@ -48,6 +60,20 @@ class AppController extends Controller
 
         return response()->json($car, 200);
     }
+
+    public function deleteCar($id)
+    {
+
+        $car = Car::find($id);
+        if (!$car) {
+            return response()->json(['message' => 'Car not found'], 404);
+        }
+
+        $car->delete();
+
+        return response()->json(['message' => 'Car deleted successfully'], 200);
+    }
+
 
 
     public function contact(Request $request)

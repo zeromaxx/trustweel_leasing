@@ -8,4 +8,12 @@ class Car extends Model
     protected $table = "cars";
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'price',
+        'stock',
+        'model',
+        'image',
+    ];
+
 }

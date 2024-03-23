@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Car from "../../../public/img/1-1.jpg";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 function Dashboard() {
     const navigate = useNavigate();
     const [cars, setCars] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentCar, setCurrentCar] = useState({});
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [newCar, setNewCar] = useState({ name: "", price: "", stock: "" });
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -27,6 +29,14 @@ function Dashboard() {
         }
     }, []);
 
+    const handleNewCarChange = (e) => {
+        const { name, value } = e.target;
+        setNewCar((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     const handleEditClick = (carId) => {
         fetch(`api/cars/${carId}`)
             .then((response) => response.json())
@@ -35,6 +45,28 @@ function Dashboard() {
                 setShowModal(true);
             })
             .catch((error) => console.error("Error:", error));
+    };
+
+    const handleDeleteClick = (carId) => {
+        if (window.confirm("Are you sure you want to delete this vehicle?")) {
+            fetch(`api/cars/${carId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        const updatedCars = cars.filter(
+                            (car) => car.id !== carId
+                        );
+                        setCars(updatedCars);
+                    } else {
+                        throw new Error("Failed to delete the car.");
+                    }
+                })
+                .catch((error) => console.error("Error:", error));
+        }
     };
 
     const handleInputChange = (e) => {
@@ -69,9 +101,34 @@ function Dashboard() {
             .catch((error) => console.error("Error:", error));
     };
 
+    const createCar = () => {
+        fetch("api/cars", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newCar),
+        })
+            .then((response) => response.json())
+            .then((createdCar) => {
+                setCars(cars.concat(createdCar));
+                setShowCreateModal(false);
+            })
+            .catch((error) => console.error("Error:", error));
+    };
+
     return (
         <>
             <div className="container mt-5">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Our Fleet</h1>
+                    <button
+                        className="btn-default btn-small"
+                        onClick={() => setShowCreateModal(true)}
+                    >
+                        Add Vehicle
+                    </button>
+                </div>
                 <table className="table table-responsive table-bordered">
                     <thead>
                         <tr>
@@ -97,7 +154,7 @@ function Dashboard() {
                                 </td>
                                 <td>{car.price}</td>
                                 <td>{car.stock}</td>
-                                <td className="d-flex">
+                                <td className="d-flex justify-content-center">
                                     <a
                                         href="#!"
                                         className="btn-default btn-small btn-edit text-dark"
@@ -126,8 +183,13 @@ function Dashboard() {
                                         </svg>
                                     </a>
                                     <a
+                                        href="#!"
                                         className="btn-default btn-small btn-red ms-2 text-dark"
                                         style={{ gap: "6px" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleDeleteClick(car.id);
+                                        }}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -148,6 +210,58 @@ function Dashboard() {
                     </tbody>
                 </table>
             </div>
+
+            <Modal
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Create a new Car</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="carName" className="form-label">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                className=""
+                                name="name"
+                                value={newCar.name}
+                                onChange={handleNewCarChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="carPrice" className="form-label">
+                                Price
+                            </label>
+                            <input
+                                type="text"
+                                className=""
+                                name="price"
+                                value={newCar.price}
+                                onChange={handleNewCarChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="carStock" className="form-label">
+                                Stock
+                            </label>
+                            <input
+                                type="number"
+                                className=""
+                                name="stock"
+                                value={newCar.stock}
+                                onChange={handleNewCarChange}
+                            />
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className="btn-default btn-small" onClick={createCar}>Create</button>
+                </Modal.Footer>
+            </Modal>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
@@ -205,7 +319,10 @@ function Dashboard() {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <button onClick={saveCarDetails} className="btn-default btn-small">
+                    <button
+                        onClick={saveCarDetails}
+                        className="btn-default btn-small"
+                    >
                         Save
                     </button>
                 </Modal.Footer>
