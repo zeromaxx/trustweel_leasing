@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import Home from "./components/Home";
 import Login from "./components/Login";
+import About from "./components/About";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import CarDetails from "./components/CarDetails";
@@ -13,6 +14,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
+            <Route path="/about" element={<About/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/contact" element={<Contact/>} />
             <Route path="/dashboard" element={<Dashboard/>} />

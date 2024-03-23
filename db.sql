@@ -23,3 +23,14 @@ CREATE TABLE `users` (
     updated_at timestamp NULL DEFAULT NULL,
     deleted_at timestamp NULL DEFAULT NULL
 )
+
+CREATE TABLE `contacts` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    created_at timestamp NULL DEFAULT NULL,
+    updated_at timestamp NULL DEFAULT NULL,
+    deleted_at timestamp NULL DEFAULT NULL
+)

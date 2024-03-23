@@ -22,3 +22,4 @@ Route::get('/cars/{id}', [AppController::class, 'details']);
 Route::post('/register', [AppController::class, 'register']);
 Route::post('/login', [AppController::class, 'login']);
 Route::post('/logout', [AppController::class, 'logout']);
+Route::post('/contact', [AppController::class, 'contact']);

@@ -45,6 +45,12 @@ function NavBar() {
                                     </li>
                                 </>
                             )}
+                            <li className="ms-3">
+                                <Link to="/about">About us</Link>
+                            </li>
+                            <li className="ms-3">
+                                <Link to="/contact">Contact</Link>
+                            </li>
                             {role === "admin" ? (
                                 <li className="ms-3">
                                     <Link to="/dashboard">Dashboard</Link>

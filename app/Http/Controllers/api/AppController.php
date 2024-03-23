@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Car;
 use App\Models\User;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -24,6 +25,28 @@ class AppController extends Controller
     {
         $car = Car::where('id', $id)->first();
         return response()->json($car);
+    }
+
+    public function contact(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->subject = $request->subject;
+        $contact->message = $request->message;
+        $contact->save();
+        return response()->json(['success' => true, 'message' => 'Thank you for your message. We will contact you as soon as possible!']);
     }
 
     public function register(Request $request)
