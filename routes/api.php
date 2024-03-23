@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/cars', [AppController::class, 'index']);
 Route::get('/cars/{id}', [AppController::class, 'details']);
+Route::put('/cars/{id}', [AppController::class, 'updateCar']);
 Route::post('/register', [AppController::class, 'register']);
 Route::post('/login', [AppController::class, 'login']);
 Route::post('/logout', [AppController::class, 'logout']);

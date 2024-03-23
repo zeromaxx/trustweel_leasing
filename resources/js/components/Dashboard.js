@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Car from "../../../public/img/1-1.jpg";
+import { Modal, Button } from "react-bootstrap";
 
 function Dashboard() {
     const navigate = useNavigate();
     const [cars, setCars] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [currentCar, setCurrentCar] = useState({});
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -18,41 +21,56 @@ function Dashboard() {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(data);
                     setCars(data);
                 })
                 .catch((error) => console.error("Error:", error));
         }
     }, []);
 
+    const handleEditClick = (carId) => {
+        fetch(`api/cars/${carId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setCurrentCar(data);
+                setShowModal(true);
+            })
+            .catch((error) => console.error("Error:", error));
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCurrentCar((prevCar) => ({
+            ...prevCar,
+            [name]: value,
+        }));
+    };
+
+    const saveCarDetails = () => {
+        if (!currentCar) return;
+
+        fetch(`api/cars/${currentCar.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(currentCar),
+        })
+            .then((response) => response.json())
+            .then((updatedCar) => {
+                setShowModal(false);
+                const updatedCars = cars.map((car) => {
+                    if (car.id === updatedCar.id) {
+                        return updatedCar;
+                    }
+                    return car;
+                });
+                setCars(updatedCars);
+            })
+            .catch((error) => console.error("Error:", error));
+    };
+
     return (
         <>
-            {/* <div className="sidebar">
-                <ul className="nav flex-column">
-                    <li className="nav-item">
-                        <a className="sidebar-link" href="#">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                enableBackground="new 0 0 1000 1000"
-                                version="1.1"
-                                viewBox="0 0 1000 1000"
-                                xmlSpace="preserve"
-                                width="32"
-                            >
-                                <path
-                                    fill="#6c757d"
-                                    d="M284.353 608.065c7.629 0 13.858-5.995 14.228-13.532.013-.236.019-.474.019-.712 0-7.867-6.379-14.246-14.246-14.246-7.867 0-14.246 6.379-14.246 14.246 0 .238.007.476.019.712.369 7.537 6.598 13.532 14.226 13.532zM729.354 579.575c-7.867 0-14.246 6.379-14.246 14.246 0 .238.007.476.019.712.37 7.537 6.599 13.532 14.228 13.532s13.858-5.995 14.228-13.532c.013-.236.018-.474.018-.712-.001-7.867-6.38-14.246-14.247-14.246z"
-                                ></path>
-                                <path
-                                    fill="#6c757d"
-                                    d="M172.624 597.235h43.569c1.77 36.11 31.61 64.83 68.16 64.83s66.391-28.72 68.16-64.83h308.68c1.771 36.11 31.61 64.83 68.16 64.83s66.391-28.72 68.16-64.83h35.71c4.01 0 7.65-1.8 10.28-4.7 2.63-2.9 4.26-6.9 4.26-11.33 0-3.81-1.229-7.5-3.479-10.4l-7.41-9.57c16.55-37.48 10.75-91.19 5.229-122.11-3.17-17.81-12.899-33.38-26.93-42.87-16.811-11.38-45.44-26.93-92.63-43.51-93.92-32.99-259.95-4.32-292.641 22.5-26.05 21.36-77.59 72-142.92 79.5-33.949 3.89-63.02 13.82-83.12 22.47-17.89 7.69-29.859 26.44-30.51 47.59l-.71 22.93-11.33 8.33c-2.84 2.09-5.109 4.88-6.67 8.1-1.56 3.21-2.41 6.85-2.41 10.6.001 12.41 9.131 22.47 20.392 22.47zm599.84 0c-1.74 22.25-20.41 39.83-43.11 39.83s-41.37-17.58-43.109-39.83a42.145 42.145 0 01-.141-3.41c0-23.85 19.4-43.25 43.25-43.25 23.851 0 43.25 19.4 43.25 43.25 0 1.15-.05 2.29-.14 3.41zm55.247-109.46c3.336.69 5.771 3.549 5.956 6.95.821 15.131-1.424 30.716-2.923 39.046a7.463 7.463 0 01-7.353 6.137h-4.998c-4.402 0-7.851-3.787-7.439-8.17l3.002-32.026a7.466 7.466 0 011.895-4.311l4.802-5.316a7.469 7.469 0 017.058-2.31zM681.14 418.279l5.027-23.402a24.21 24.21 0 0121.145-18.993l4.264-.448c.896.297 1.808.588 2.683.895 46.205 16.234 72.761 31.053 86.901 40.625 8.388 5.674 14.338 15.349 16.331 26.549.243 1.362.478 2.718.703 4.069H704.81a24.21 24.21 0 01-23.67-29.295zm-103.452 83.629h-25a8.5 8.5 0 110-17h25a8.5 8.5 0 010 17zm-142.012-98.819c3.835-3.277 7.146-6.108 10.079-8.512 4.355-3.573 22.641-12.418 60.703-20.347 31.671-6.597 66.803-10.498 100.046-11.177l-11.623 66.681c-2.934 16.83-17.209 29.335-34.278 30.028l-173.586 7.045a36.285 36.285 0 01-26.45-9.948c31.52-16.536 56.982-38.28 75.109-53.77zM284.353 550.575c23.851 0 43.25 19.4 43.25 43.25 0 1.15-.05 2.29-.14 3.41-1.74 22.25-20.41 39.83-43.11 39.83s-41.37-17.58-43.109-39.83a42.145 42.145 0 01-.141-3.41c.001-23.85 19.401-43.25 43.25-43.25zm-84.833-48c6.812 0 12.333 8.357 12.333 18.667 0 10.309-5.521 18.667-12.333 18.667-6.811 0-12.333-8.357-12.333-18.667.001-10.31 5.522-18.667 12.333-18.667z"
-                                ></path>
-                            </svg>
-                            <span className="ms-2">Add Vehicle</span>
-                        </a>
-                    </li>
-                </ul>
-            </div> */}
             <div className="container mt-5">
                 <table className="table table-responsive table-bordered">
                     <thead>
@@ -81,15 +99,47 @@ function Dashboard() {
                                 <td>{car.stock}</td>
                                 <td className="d-flex">
                                     <a
-                                        href="!#"
-                                        className="btn-default btn-small btn-edit"
+                                        href="#!"
+                                        className="btn-default btn-small btn-edit text-dark"
+                                        style={{ gap: "6px" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleEditClick(car.id);
+                                        }}
                                     >
                                         Edit
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            enableBackground="new 0 0 80 80"
+                                            version="1.1"
+                                            viewBox="0 0 80 80"
+                                            xmlSpace="preserve"
+                                            width="16"
+                                            fill="black"
+                                        >
+                                            <g>
+                                                <g>
+                                                    <path d="M61.8 71.8L8.4 71.8 8.4 18.4 35.1 18.4 35.1 15.4 5.4 15.4 5.4 74.8 64.8 74.8 64.8 41.5 61.8 41.5z"></path>
+                                                    <path d="M22.6 46.2l-2.1 13.1 13.1-2.1 1.3-1.4 39.8-39.7-11-10.9L24 44.9l-1.4 1.3zm2.7 2.1l6.1 6.2-7.4 1.2 1.3-7.4zm45.1-32.2l-3.9 4-6.6-6.7 4-3.9 6.5 6.6zm-12.7-.6l6.7 6.7-30.6 30.5-6.6-6.7 30.5-30.5z"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
                                     </a>
                                     <a
-                                        href="!#"
-                                        className="btn-default btn-small btn-red ms-2"
+                                        className="btn-default btn-small btn-red ms-2 text-dark"
+                                        style={{ gap: "6px" }}
                                     >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="14"
+                                            viewBox="0 0 48 48"
+                                        >
+                                            <g>
+                                                <path d="M41 48H7V7h34v41zM9 46h30V9H9v37z"></path>
+                                                <path d="M35 9H13V1h22v8zM15 7h18V3H15v4zM16 41a1 1 0 01-1-1V15a1 1 0 112 0v25a1 1 0 01-1 1zM24 41a1 1 0 01-1-1V15a1 1 0 112 0v25a1 1 0 01-1 1zM32 41a1 1 0 01-1-1V15a1 1 0 112 0v25a1 1 0 01-1 1z"></path>
+                                                <path d="M0 7H48V9H0z"></path>
+                                            </g>
+                                        </svg>
                                         Delete
                                     </a>
                                 </td>
@@ -98,6 +148,68 @@ function Dashboard() {
                     </tbody>
                 </table>
             </div>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Car</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {currentCar && (
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="carName" className="form-label">
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    className=""
+                                    id="carName"
+                                    name="name"
+                                    value={currentCar.name}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="carPrice"
+                                    className="form-label"
+                                >
+                                    Price
+                                </label>
+                                <input
+                                    type="text"
+                                    className=""
+                                    id="carPrice"
+                                    name="price"
+                                    value={currentCar.price}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="carStock"
+                                    className="form-label"
+                                >
+                                    Stock
+                                </label>
+                                <input
+                                    type="number"
+                                    className=""
+                                    id="carStock"
+                                    name="stock"
+                                    value={currentCar.stock}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </form>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={saveCarDetails} className="btn-default btn-small">
+                        Save
+                    </button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

@@ -27,6 +27,29 @@ class AppController extends Controller
         return response()->json($car);
     }
 
+    public function updateCar(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+        ]);
+
+        $car = Car::find($id);
+        if (!$car) {
+            return response()->json(['message' => 'Car not found'], 404);
+        }
+
+        $car->name = $validated['name'];
+        $car->price = $validated['price'];
+        $car->stock = $validated['stock'];
+
+        $car->save();
+
+        return response()->json($car, 200);
+    }
+
+
     public function contact(Request $request)
     {
         $validator = Validator::make($request->all(), [
