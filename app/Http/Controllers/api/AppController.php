@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Car;
+use App\Models\Favourite;
 use App\Models\User;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -11,16 +12,31 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AppController extends Controller
 {
     public function index()
     {
+        $userId = session('user_id');
         $cars = Car::all();
+        $favourites = Favourite::where('user_id', $userId)->pluck('product_id')->toArray();
+
+        foreach ($cars as $car) {
+            $car->isFavorited = in_array($car->id, $favourites);
+        }
+
         return response()->json($cars);
     }
 
+
+    public function userFavourite()
+    {
+        $userId = session('user_id');
+        $favourites = Favourite::with('product')->where('user_id', $userId)->get();
+        return response()->json($favourites);
+    }
     public function details($id)
     {
         $car = Car::where('id', $id)->first();
@@ -74,7 +90,17 @@ class AppController extends Controller
         return response()->json(['message' => 'Car deleted successfully'], 200);
     }
 
-
+    public function favouriteCar($id)
+    {
+        $userId = session('user_id');
+        $product = Car::findOrFail($id);
+        if (auth()->user()->hasFavourited($product)) {
+            auth()->user()->removeFavourite($product);
+            return response()->json(['message' => 'Removed from favourites.']);
+        }
+        auth()->user()->addFavourite($product, $userId);
+        return response()->json(['message' => 'Added to favourites!']);
+    }
 
     public function contact(Request $request)
     {
@@ -143,6 +169,8 @@ class AppController extends Controller
         if (Auth::attempt($credentials)) {
 
             $token = JWTAuth::fromUser(Auth::user());
+
+            Session::put('user_id', Auth::id());
 
             $request->session()->regenerate();
 

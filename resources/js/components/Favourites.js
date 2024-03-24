@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Car from "../../../public/img/1-1.jpg";
 import { Link } from "react-router-dom";
-
-function Fleet() {
-    const [cars, setCars] = useState([]);
+export default function Favourites() {
+    const [favourites, setFavourites] = useState([]);
 
     useEffect(() => {
-        fetch("api/cars")
+        fetch("api/favourites")
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
-                setCars(data);
+                console.log(data);
+                setFavourites(data);
             })
             .catch((error) => console.error("Error:", error));
     }, []);
@@ -24,22 +24,27 @@ function Fleet() {
                 return response.json();
             })
             .then((data) => {
-                setCars(prevCars => prevCars.map(car => {
-                    if (car.id === carId) {
-
-                        return { ...car, isFavorited: !car.isFavorited };
-                    }
-                    return car;
-                }));
+                setFavourites(prevFavourites => prevFavourites.filter(favourite => favourite.product.id !== carId));
             })
             .catch((error) => console.error("Error:", error));
     };
+
     return (
-        <div className="fleet">
+        <div className="favourites">
             <div className="container">
                 <div className="row">
-                    {cars.map((car) => (
-                        <div key={car.id} className="col-md-4">
+                    <h5
+                        className="text-center mt-5"
+                        style={{
+                            textDecoration: "underline",
+                            textUnderlineOffset: ".3rem",
+                        }}
+                    >
+                        {favourites.length === 0 &&
+                            "Your haven't favourited anything yet."}
+                    </h5>
+                    {favourites.map((favourite) => (
+                        <div key={favourite.created_at} className="col-md-4">
                             <div className="car mx-auto my-4">
                                 <img
                                     src={Car}
@@ -50,7 +55,7 @@ function Fleet() {
                                     <div className="row">
                                         <div className="col-md-6">
                                             <h5 className="card-title">
-                                                {car.name}
+                                                {favourite.product.name}
                                             </h5>
                                         </div>
                                         <div className="col-md-6">
@@ -108,16 +113,19 @@ function Fleet() {
                                 <div className="footer-card">
                                     <div className="row align-items-center">
                                         <div className="col-md-5">
-                                            <span>{car.price}€ /month</span>
+                                            <span>
+                                                {favourite.product.price}€
+                                                /month
+                                            </span>
                                         </div>
                                         <div className="col-md-7">
                                             <div className="d-flex align-items-center justify-content-end">
                                                 <div
-                                                    className={car.isFavorited ? 'car-favorite favourited' : 'car-favorite'}
+                                                    className="car-favorite favourited"
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         handleUserFavourite(
-                                                            car.id
+                                                            favourite.product.id
                                                         );
                                                     }}
                                                 >
@@ -130,7 +138,7 @@ function Fleet() {
                                                     </svg>
                                                 </div>
                                                 <Link
-                                                    to={`/cars/${car.id}`}
+                                                    to={`/`}
                                                     className="btn-default btn-small"
                                                 >
                                                     Rent now
@@ -147,5 +155,3 @@ function Fleet() {
         </div>
     );
 }
-
-export default Fleet;

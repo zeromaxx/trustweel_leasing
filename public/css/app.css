@@ -128,10 +128,12 @@ input:focus {
   align-items: center;
 }
 
-.fleet .car-img {
+.fleet .car-img,
+.favourites .car-img {
   border-radius: 16px;
 }
-.fleet .year {
+.fleet .year,
+.favourites .year {
   height: 30px;
   padding: 0 12px;
   border-radius: 12px;
@@ -140,7 +142,8 @@ input:focus {
   font-weight: 600;
   border: 2px dashed rgba(24, 156, 244, 0.44);
 }
-.fleet .car {
+.fleet .car,
+.favourites .car {
   border-radius: 20px;
   position: relative;
   margin-top: 20px;
@@ -149,7 +152,8 @@ input:focus {
   box-shadow: 3px 3px 9px rgba(164, 164, 186, 0.2);
   border: 1px solid #fff;
 }
-.fleet .car-favorite {
+.fleet .car-favorite,
+.favourites .car-favorite {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -162,21 +166,34 @@ input:focus {
   margin-right: 15px;
   cursor: pointer;
 }
-.fleet .car-favorite:hover {
+.fleet .car-favorite.favourited,
+.favourites .car-favorite.favourited {
   background-color: rgba(235, 87, 87, 0.12);
 }
-.fleet .car-favorite:hover svg {
+.fleet .car-favorite.favourited svg,
+.favourites .car-favorite.favourited svg {
   fill: #eb5757;
 }
-.fleet .body-card {
+.fleet .car-favorite:hover,
+.favourites .car-favorite:hover {
+  background-color: rgba(235, 87, 87, 0.12);
+}
+.fleet .car-favorite:hover svg,
+.favourites .car-favorite:hover svg {
+  fill: #eb5757;
+}
+.fleet .body-card,
+.favourites .body-card {
   padding: 20px 10px 10px;
 }
-.fleet .footer-card {
+.fleet .footer-card,
+.favourites .footer-card {
   padding: 20px 10px 10px;
   margin-top: 10px;
   position: relative;
 }
-.fleet .footer-card::before {
+.fleet .footer-card::before,
+.favourites .footer-card::before {
   content: "";
   position: absolute;
   top: 0;

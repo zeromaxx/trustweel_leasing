@@ -8,7 +8,7 @@ function NavBar() {
     const { isLoggedIn, logOut, role } = useContext(AuthContext);
 
     const handleLogout = () => {
-        fetch("api/logout", {
+        fetch("/api/logout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,14 +59,19 @@ function NavBar() {
                                 ""
                             )}
                             {isLoggedIn && (
-                                <li className="ms-3">
-                                    <a
-                                        style={{ cursor: "pointer" }}
-                                        onClick={handleLogout}
-                                    >
-                                        Logout
-                                    </a>
-                                </li>
+                                <>
+                                    <li className="ms-3">
+                                        <Link to="/favourites">Favourites</Link>
+                                    </li>
+                                    <li className="ms-3">
+                                        <a
+                                            style={{ cursor: "pointer" }}
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </a>
+                                    </li>
+                                </>
                             )}
                         </ul>
                     </div>

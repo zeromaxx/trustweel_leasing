@@ -15,5 +15,9 @@ class Car extends Model
         'model',
         'image',
     ];
+    public function favouritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favourites');
+    }
 
 }
