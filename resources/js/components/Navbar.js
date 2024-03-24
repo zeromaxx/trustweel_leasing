@@ -33,7 +33,7 @@ function NavBar() {
                             </Link>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-8">
                         <ul className="nav-menu p-0 m-0">
                             {!isLoggedIn && (
                                 <>
@@ -63,7 +63,7 @@ function NavBar() {
                                     <li className="ms-3">
                                         <Link to="/favourites">Favourites</Link>
                                     </li>
-                                    <li className="ms-3">
+                                    <li className="ms-auto">
                                         <a
                                             style={{ cursor: "pointer" }}
                                             onClick={handleLogout}

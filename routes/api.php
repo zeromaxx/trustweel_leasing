@@ -29,3 +29,4 @@ Route::post('/car/favourite/{id}', [AppController::class, 'favouriteCar']);
 Route::post('/login', [AppController::class, 'login']);
 Route::post('/logout', [AppController::class, 'logout']);
 Route::post('/contact', [AppController::class, 'contact']);
+Route::post('/cars/saveOrder', [AppController::class, 'saveOrder']);

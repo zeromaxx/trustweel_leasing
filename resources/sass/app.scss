@@ -705,3 +705,115 @@ input:focus {
         }
     }
 }
+.order-modal {
+    .modal-content {
+        background: linear-gradient(1turn, #f1f6fd 30%, #edf1f7);
+        box-shadow: 3px 3px 9px rgba(164, 164, 186, 0.2);
+        border: 1px solid #fff;
+        padding: 20px;
+        max-width: 420px;
+        border-radius: 20px;
+    }
+    .modal__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        .modal__title {
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #33334f;
+            font-size: 20px;
+            line-height: 26px;
+        }
+        .sign__group {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .sign__label--modal {
+            padding-left: 0;
+        }
+        .sign__label {
+            font-weight: 400;
+            font-size: 14px;
+            color: #4e5d78;
+            margin-bottom: 5px;
+        }
+        .sign__input {
+            background-color: #fff;
+            border: 1px solid rgba(138, 148, 166, 0.2);
+            border-radius: 16px;
+            height: 46px;
+            position: relative;
+            color: #33334f;
+            font-size: 16px;
+            width: 100%;
+            padding: 0 20px;
+        }
+        .sign__radio {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .sign__radio li {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .sign__radio input:checked + label {
+            color: #33334f;
+        }
+        .sign__radio label {
+            display: block;
+            margin: 0;
+            position: relative;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 14px;
+            color: #8a94a6;
+            line-height: 24px;
+            padding-left: 30px;
+            transition: color 0.5s ease;
+        }
+        .sign__radio input:checked + label:before {
+            border-color: #189cf4;
+        }
+        .sign__radio label:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 6px solid #8a94a6;
+            background-color: transparent;
+            border-radius: 50%;
+            left: 0;
+            top: 2px;
+            transition: border-color 0.5s ease;
+        }
+        .sign__radio input:checked + label {
+            color: #33334f;
+        }
+        .sign__radio input:not(:checked),
+        .sign__radio input:checked {
+            position: absolute;
+            left: -9999px;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    }
+}

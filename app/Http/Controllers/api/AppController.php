@@ -43,6 +43,10 @@ class AppController extends Controller
         $car = Car::where('id', $id)->first();
         return response()->json($car);
     }
+    public function saveOrder()
+    {
+        dd(1);
+    }
 
     public function createCar(Request $request)
     {
