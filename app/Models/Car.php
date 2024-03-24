@@ -14,6 +14,10 @@ class Car extends Model
         'stock',
         'model',
         'image',
+        'year',
+        'gearbox',
+        'fuel',
+        'space',
     ];
     public function favouritedBy()
     {

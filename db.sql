@@ -18,14 +18,14 @@ CREATE TABLE IF NOT EXISTS `cars` (
 --
 
 INSERT INTO `cars` (`id`, `name`, `price`, `stock`, `model`, `image`, `year`, `gearbox`, `fuel`, `space`) VALUES
-(12, 'Toyota Corolla', '20000.00', 10, 'SE', NULL, 2023, 'Automatic', 'Petrol', 5),
+(12, 'Toyota Corolla', '20000.00', 10, 'SE', NULL, 2023, 'Manual', 'Petrol', 5),
 (11, 'Chevrolet Camaro', '31500.00', 3, 'LT', NULL, 2021, 'Automatic', 'Petrol', 4),
 (10, 'Ford Mustang', '36000.00', 5, 'GT', NULL, 2022, 'Automatic', 'Petrol', 4),
 (13, 'Honda Accord', '24000.00', 7, 'Sport', NULL, 2022, 'Automatic', 'Petrol', 5),
 (14, 'BMW 3 Series', '41000.00', 4, '330i', NULL, 2022, 'Automatic', 'Petrol', 5),
 (15, 'Mercedes-Benz C-Class', '43000.00', 6, 'C300', NULL, 2023, 'Automatic', 'Petrol', 5),
 (16, 'Audi A4', '39000.00', 5, 'Premium', NULL, 2022, 'Automatic', 'Petrol', 5),
-(17, 'Tesla Model 3', '48000.00', 2, 'Standard Range Plus', NULL, 2023, 'Automatic', 'Electric', 5);
+(17, 'Tesla Model 3', '48000.00', 2, 'Standard Range Plus', NULL, 2023, 'Manual', 'Electric', 5);
 
 CREATE TABLE `users` (
     id INT AUTO_INCREMENT PRIMARY KEY,

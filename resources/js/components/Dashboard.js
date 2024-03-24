@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Car from "../../../public/img/1-1.jpg";
 import { Modal } from "react-bootstrap";
+import ErrorMessage from "./ErrorMessage";
 
 function Dashboard() {
     const navigate = useNavigate();
     const [cars, setCars] = useState([]);
+    const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [currentCar, setCurrentCar] = useState({});
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [newCar, setNewCar] = useState({ name: "", price: "", stock: "" });
+    const [newCar, setNewCar] = useState({
+        name: "",
+        price: "",
+        stock: "",
+        image: undefined,
+        year: "",
+        gearbox: "",
+        fuel: "",
+        space: "",
+    });
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -102,19 +112,39 @@ function Dashboard() {
     };
 
     const createCar = () => {
+        const formData = new FormData();
+        formData.append("name", newCar.name);
+        formData.append("price", newCar.price);
+        formData.append("stock", newCar.stock);
+        formData.append("year", newCar.year);
+        formData.append("gearbox", newCar.gearbox);
+        formData.append("fuel", newCar.fuel);
+        formData.append("space", newCar.space);
+
+        if (newCar.image) formData.append("image", newCar.image);
+
         fetch("api/cars", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newCar),
+            body: formData,
         })
             .then((response) => response.json())
             .then((createdCar) => {
-                setCars(cars.concat(createdCar));
-                setShowCreateModal(false);
+                if (!createdCar.error) {
+                    setCars(cars.concat(createdCar));
+                    setShowCreateModal(false);
+                } else {
+                    setError(createdCar.error);
+                }
             })
             .catch((error) => console.error("Error:", error));
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setNewCar((prevCar) => ({
+            ...prevCar,
+            image: file,
+        }));
     };
 
     return (
@@ -146,7 +176,7 @@ function Dashboard() {
                                 <td>
                                     {" "}
                                     <img
-                                        src={Car}
+                                        src={car.image}
                                         className="car-img"
                                         alt="car"
                                         width="50px"
@@ -219,47 +249,161 @@ function Dashboard() {
                     <Modal.Title>Create a new Car</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
-                        <div className="mb-3">
-                            <label htmlFor="carName" className="form-label">
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                className=""
-                                name="name"
-                                value={newCar.name}
-                                onChange={handleNewCarChange}
-                            />
+                    <form encType="multipart/form-data">
+                        <div className="row">
+                            <div className="col-md-6">
+                                {" "}
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="carName"
+                                        className="form-label"
+                                    >
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="name"
+                                        value={newCar.name}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                {" "}
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="carPrice"
+                                        className="form-label"
+                                    >
+                                        Price
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="price"
+                                        value={newCar.price}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="carStock"
+                                        className="form-label"
+                                    >
+                                        Stock
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className=""
+                                        name="stock"
+                                        value={newCar.stock}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label"
+                                    >
+                                        Year
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="year"
+                                        value={newCar.year}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="gearbox"
+                                        className="form-label"
+                                    >
+                                        GearBox
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="gearbox"
+                                        value={newCar.gearbox}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="fuel"
+                                        className="form-label"
+                                    >
+                                        Fuel
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="fuel"
+                                        value={newCar.fuel}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="space"
+                                        className="form-label"
+                                    >
+                                        Space
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className=""
+                                        name="space"
+                                        value={newCar.space}
+                                        onChange={handleNewCarChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="carImage"
+                                        className="form-label"
+                                    >
+                                        Image
+                                    </label>
+                                    <input
+                                        type="file"
+                                        className=""
+                                        name="image"
+                                        onChange={handleFileChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="carPrice" className="form-label">
-                                Price
-                            </label>
-                            <input
-                                type="text"
-                                className=""
-                                name="price"
-                                value={newCar.price}
-                                onChange={handleNewCarChange}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="carStock" className="form-label">
-                                Stock
-                            </label>
-                            <input
-                                type="number"
-                                className=""
-                                name="stock"
-                                value={newCar.stock}
-                                onChange={handleNewCarChange}
-                            />
-                        </div>
+
+                        {error && (
+                            <ErrorMessage message={error} className="mt-3" />
+                        )}
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="btn-default btn-small" onClick={createCar}>Create</button>
+                    <button
+                        className="btn-default btn-small"
+                        onClick={createCar}
+                    >
+                        Create
+                    </button>
                 </Modal.Footer>
             </Modal>
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Car;
-use App\Models\Favourite;
 use App\Models\User;
 use App\Models\Contact;
+use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AppController extends Controller
 {
@@ -45,16 +46,32 @@ class AppController extends Controller
 
     public function createCar(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'year' => 'required|string|max:255',
+                'gearbox' => 'required|string|max:255',
+                'fuel' => 'required|string|max:255',
+                'space' => 'required|string|max:255',
+                'price' => 'required|numeric',
+                'stock' => 'required|integer',
+                'image' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()->first()], 422);
+        }
+
+        // Handle file uploading
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $validatedData['image'] = 'images/'.$imageName;
+        }
 
         $car = Car::create($validatedData);
         return response()->json($car, 201);
     }
-
     public function updateCar(Request $request, $id)
     {
         $validated = $request->validate([

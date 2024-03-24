@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Car from "../../../public/img/1-1.jpg";
 import { Link } from "react-router-dom";
 export default function Favourites() {
     const [favourites, setFavourites] = useState([]);
@@ -47,7 +46,7 @@ export default function Favourites() {
                         <div key={favourite.created_at} className="col-md-4">
                             <div className="car mx-auto my-4">
                                 <img
-                                    src={Car}
+                                    src={favourite.product.image}
                                     className="card-img-top car-img"
                                     alt="car"
                                 />
