@@ -122,7 +122,7 @@ export default function Contact() {
                             </div>
                             {Object.keys(validationErrors).length > 0 && (
                                 <div
-                                    className="alert alert-danger mt-2 w-100 text-center"
+                                    className="alert alert-danger mt-2 w-100 text-center font-size-14"
                                     role="alert"
                                 >
                                     {Object.values(validationErrors).map(

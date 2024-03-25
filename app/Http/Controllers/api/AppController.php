@@ -32,6 +32,14 @@ class AppController extends Controller
         return response()->json($cars);
     }
 
+    public function orders()
+    {
+        $userId = session('user_id');
+        $orders = Order::with("product")->where('user_id', $userId)->get();
+
+        return response()->json($orders);
+    }
+
 
     public function userFavourite()
     {
@@ -58,8 +66,8 @@ class AppController extends Controller
                         $userId = $request->session()->get('user_id');
 
                         $existingOrder = Order::where('user_id', $userId)
-                                              ->where('product_id', $value)
-                                              ->exists();
+                            ->where('product_id', $value)
+                            ->exists();
                         if ($existingOrder) {
                             $fail('You have already ordered this product.');
                         }
@@ -104,9 +112,9 @@ class AppController extends Controller
         // Handle file uploading
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
-            $validatedData['image'] = 'images/'.$imageName;
+            $validatedData['image'] = 'images/' . $imageName;
         }
 
         $car = Car::create($validatedData);
