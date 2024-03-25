@@ -44,7 +44,7 @@ function Fleet() {
                 </div>
                 <div className="row">
                     {cars.map((car) => (
-                        <div key={car.id} className="col-md-4">
+                        <div key={car.id} className="col-lg-4 col-md-6">
                             <div className="car mx-auto my-4">
                                 <img
                                     src={car.image}

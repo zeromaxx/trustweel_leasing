@@ -14016,7 +14016,7 @@ function Favourites() {
           children: "Your favourite list is currently empty."
         }), favourites.map(function (favourite) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "col-md-4",
+            className: "col-lg-4 col-md-6",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: "car mx-auto my-4",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
@@ -14120,7 +14120,7 @@ function Favourites() {
                           })
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-                        to: "/",
+                        to: "/cars/".concat(favourite.product.id),
                         className: "btn-default btn-small",
                         children: "Rent now"
                       })]
@@ -14219,7 +14219,7 @@ function Fleet() {
         className: "row",
         children: cars.map(function (car) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "col-md-4",
+            className: "col-lg-4 col-md-6",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: "car mx-auto my-4",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
@@ -14481,7 +14481,7 @@ function Login() {
           children: "sign in"
         }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ErrorMessage__WEBPACK_IMPORTED_MODULE_2__["default"], {
           message: error,
-          className: "mt-3"
+          className: "mt-3 font-size-14"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
           className: "sign__text",
           children: ["Don't have an account?", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
@@ -14588,14 +14588,22 @@ function NavBar() {
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
               className: "ms-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
                 to: "/about",
+                className: function className(_ref) {
+                  var isActive = _ref.isActive;
+                  return isActive ? "active" : "";
+                },
                 children: "About us"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
               className: "ms-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
                 to: "/contact",
+                className: function className(_ref2) {
+                  var isActive = _ref2.isActive;
+                  return isActive ? "active" : "";
+                },
                 children: "Contact"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -14616,7 +14624,7 @@ function NavBar() {
                   children: [role === "admin" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
                     as: "div",
                     className: "custom-drop-item",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
                       to: "/dashboard",
                       className: "custom-link",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
@@ -14632,7 +14640,7 @@ function NavBar() {
                   }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
                     as: "div",
                     className: "custom-drop-item",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
                       to: "/orders",
                       className: "custom-link",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
@@ -14648,7 +14656,7 @@ function NavBar() {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
                     as: "div",
                     className: "custom-drop-item",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
                       to: "/favourites",
                       className: "custom-link",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
@@ -14747,7 +14755,6 @@ function Orders() {
     fetch("api/orders").then(function (response) {
       return response.json();
     }).then(function (data) {
-      console.log(data);
       setOrders(data);
     })["catch"](function (error) {
       return console.error("Error:", error);
@@ -14770,9 +14777,9 @@ function Orders() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                 className: "cart__table-scroll",
                 "data-scrollbar": "true",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
                   className: "scroll-content",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
                     className: "cart__table",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
@@ -14824,7 +14831,13 @@ function Orders() {
                         }, order.id);
                       })
                     })]
-                  })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+                    className: "text-center mt-5 alert-info alert",
+                    style: {
+                      display: orders.length === 0 ? "block" : "none"
+                    },
+                    children: "You haven't ordered anything yet."
+                  })]
                 })
               })
             })
@@ -14879,6 +14892,10 @@ function Register() {
     _useState6 = _slicedToArray(_useState5, 2),
     success = _useState6[0],
     setSuccess = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState8 = _slicedToArray(_useState7, 2),
+    validationErrors = _useState8[0],
+    setValidationErrors = _useState8[1];
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
     fetch("api/register", {
@@ -14898,7 +14915,10 @@ function Register() {
         setSuccess(data.message);
         setEmail("");
         setPassword("");
-      } else {}
+        setValidationErrors({});
+      } else {
+        setValidationErrors(data.errors);
+      }
     })["catch"](function (error) {
       console.error("Error:", error);
     });
@@ -14946,7 +14966,17 @@ function Register() {
           })]
         })]
       }), success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SuccessMessage__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: success
+        message: success,
+        className: "mt-3 font-size-14 w-100"
+      }), Object.keys(validationErrors).length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "alert alert-danger mt-2 w-100 text-center font-size-14",
+        role: "alert",
+        children: Object.values(validationErrors).map(function (error, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "m-0",
+            children: error
+          }, index);
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
       src: _public_img_register_img_jpg__WEBPACK_IMPORTED_MODULE_1__["default"],

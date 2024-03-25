@@ -108,6 +108,9 @@ input:focus {
         text-decoration: none;
         font-size: 14px;
         color: #4e5d78;
+        &.active {
+            color: var(--main-color);
+        }
     }
 
     .logo {

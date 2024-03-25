@@ -111,6 +111,9 @@ input:focus {
   font-size: 14px;
   color: #4e5d78;
 }
+.header a.active {
+  color: var(--main-color);
+}
 .header .logo .left {
   color: var(--main-color);
 }

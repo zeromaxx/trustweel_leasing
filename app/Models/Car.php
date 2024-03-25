@@ -2,11 +2,12 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model
 {
     protected $table = "cars";
-    public $timestamps = false;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

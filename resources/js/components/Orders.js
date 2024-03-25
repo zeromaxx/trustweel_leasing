@@ -9,7 +9,6 @@ export default function Orders() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setOrders(data);
             })
             .catch((error) => console.error("Error:", error));
@@ -118,6 +117,17 @@ export default function Orders() {
                                                 })}
                                             </tbody>
                                         </table>
+                                        <h5
+                                            className="text-center mt-5 alert-info alert"
+                                            style={{
+                                                display:
+                                                    orders.length === 0
+                                                        ? "block"
+                                                        : "none",
+                                            }}
+                                        >
+                                            You haven't ordered anything yet.
+                                        </h5>
                                     </div>
                                 </div>
                             </div>

@@ -69,7 +69,7 @@ export default function Login() {
                     <button type="submit" className="btn-default">
                         sign in
                     </button>
-                    {error && <ErrorMessage message={error} className="mt-3" />}
+                    {error && <ErrorMessage message={error} className="mt-3 font-size-14" />}
                     <span className="sign__text">
                         Don't have an account?{" "}
                         <Link to="/register">Sign Up!</Link>

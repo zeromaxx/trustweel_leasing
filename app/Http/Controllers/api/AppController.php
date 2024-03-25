@@ -35,7 +35,12 @@ class AppController extends Controller
     public function orders()
     {
         $userId = session('user_id');
-        $orders = Order::with("product")->where('user_id', $userId)->get();
+        $orders = Order::with('product')
+        ->where('user_id', $userId)
+        ->whereHas('product', function ($query) {
+            $query->whereNull('deleted_at');
+        })
+        ->get();
 
         return response()->json($orders);
     }
@@ -44,7 +49,12 @@ class AppController extends Controller
     public function userFavourite()
     {
         $userId = session('user_id');
-        $favourites = Favourite::with('product')->where('user_id', $userId)->get();
+        $favourites = Favourite::with('product')
+        ->where('user_id', $userId)
+        ->whereHas('product', function ($query) {
+            $query->whereNull('deleted_at');
+        })
+        ->get();
         return response()->json($favourites);
     }
     public function details($id)

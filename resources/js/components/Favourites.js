@@ -46,7 +46,7 @@ export default function Favourites() {
                     </h5>
 
                     {favourites.map((favourite) => (
-                        <div key={favourite.created_at} className="col-md-4">
+                        <div key={favourite.created_at} className="col-lg-4 col-md-6">
                             <div className="car mx-auto my-4">
                                 <img
                                     src={favourite.product.image}
@@ -140,7 +140,7 @@ export default function Favourites() {
                                                     </svg>
                                                 </div>
                                                 <Link
-                                                    to={`/`}
+                                                    to={`/cars/${favourite.product.id}`}
                                                     className="btn-default btn-small"
                                                 >
                                                     Rent now
