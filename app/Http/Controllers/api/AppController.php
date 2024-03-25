@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Car;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Contact;
 use App\Models\Favourite;
 use Illuminate\Http\Request;
@@ -43,9 +44,44 @@ class AppController extends Controller
         $car = Car::where('id', $id)->first();
         return response()->json($car);
     }
-    public function saveOrder()
+    public function saveOrder(Request $request)
     {
-        dd(1);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'address' => 'required|string|max:255',
+                'payment_type' => 'required|string|max:255',
+                'product_id' => [
+                    'required',
+                    function ($attribute, $value, $fail) use ($request) {
+                        $userId = $request->session()->get('user_id');
+
+                        $existingOrder = Order::where('user_id', $userId)
+                                              ->where('product_id', $value)
+                                              ->exists();
+                        if ($existingOrder) {
+                            $fail('You have already ordered this product.');
+                        }
+                    },
+                ],
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()->first()], 422);
+        }
+
+        $userId = session('user_id');
+
+        $order = new Order();
+        $order->user_id = $userId;
+        $order->name = $validatedData['name'];
+        $order->phone = $validatedData['phone'];
+        $order->address = $validatedData['address'];
+        $order->payment_type = $validatedData['payment_type'];
+        $order->product_id = $request->product_id;
+        $order->save();
+
+        return response()->json(['message' => 'Order saved successfully'], 200);
     }
 
     public function createCar(Request $request)

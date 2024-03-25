@@ -23,7 +23,11 @@ export default function Favourites() {
                 return response.json();
             })
             .then((data) => {
-                setFavourites(prevFavourites => prevFavourites.filter(favourite => favourite.product.id !== carId));
+                setFavourites((prevFavourites) =>
+                    prevFavourites.filter(
+                        (favourite) => favourite.product.id !== carId
+                    )
+                );
             })
             .catch((error) => console.error("Error:", error));
     };
@@ -33,15 +37,14 @@ export default function Favourites() {
             <div className="container">
                 <div className="row">
                     <h5
-                        className="text-center mt-5"
+                        className="text-center mt-5 alert-info alert"
                         style={{
-                            textDecoration: "underline",
-                            textUnderlineOffset: ".3rem",
+                            display: favourites.length === 0 ? "block" : "none",
                         }}
                     >
-                        {favourites.length === 0 &&
-                            "Your haven't favourited anything yet."}
+                        Your favourite list is currently empty.
                     </h5>
+
                     {favourites.map((favourite) => (
                         <div key={favourite.created_at} className="col-md-4">
                             <div className="car mx-auto my-4">

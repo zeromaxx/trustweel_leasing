@@ -1,35 +1,69 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
 
 export default function CarDetails() {
     const { id } = useParams();
     const [carDetails, setCarDetails] = useState({});
     const [showModal, setShowModal] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+
     useEffect(() => {
         fetch(`/api/cars/${id}`)
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setCarDetails(data);
             })
             .catch((error) => console.error("Error:", error));
     }, [id]);
 
-    const saveOrder = () => {
-        fetch(`/api/cars/saveOrder`,{
+    const [order, setOrder] = useState({
+        name: "",
+        phone: "",
+        address: "",
+        payment_type: "",
+        product_id: carDetails.id,
+    });
+
+    const saveOrder = (productId) => {
+        const orderData = { ...order, product_id: productId };
+        fetch(`/api/cars/saveOrder`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify(orderData),
         })
             .then((response) => response.json())
             .then((data) => {
-               console.log(data);
+                if (!data.error) {
+                    setOrder({
+                        name: "",
+                        phone: "",
+                        address: "",
+                        payment_type: "",
+                        product_id: carDetails.id,
+                    });
+                    setError("");
+                    setSuccess(data.message);
+                } else {
+                    setError(data.error);
+                }
             })
             .catch((error) => console.error("Error:", error));
+    };
+
+    const handleNewOrderChange = (e) => {
+        const { name, value } = e.target;
+        setOrder((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     return (
@@ -152,7 +186,7 @@ export default function CarDetails() {
                     <Modal.Title className="modal__title">Rent car</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form  className="modal__form">
+                    <form className="modal__form">
                         <div className="sign__group">
                             <label
                                 htmlFor="fullname"
@@ -166,6 +200,8 @@ export default function CarDetails() {
                                 name="name"
                                 className="sign__input"
                                 placeholder="Full name"
+                                value={order.name}
+                                onChange={handleNewOrderChange}
                             />
                         </div>
 
@@ -182,6 +218,8 @@ export default function CarDetails() {
                                 name="phone"
                                 className="sign__input"
                                 placeholder="090 123 45 67"
+                                value={order.phone}
+                                onChange={handleNewOrderChange}
                             />
                         </div>
 
@@ -198,6 +236,8 @@ export default function CarDetails() {
                                 name="address"
                                 className="sign__input"
                                 placeholder="221B Baker St, Marylebone, London"
+                                value={order.address}
+                                onChange={handleNewOrderChange}
                             />
                         </div>
 
@@ -212,6 +252,9 @@ export default function CarDetails() {
                                         id="type1"
                                         type="radio"
                                         name="payment_type"
+                                        value="Visa"
+                                        checked={order.payment_type === "Visa"}
+                                        onChange={handleNewOrderChange}
                                     />
                                     <label htmlFor="type1">Visa</label>
                                 </li>
@@ -220,6 +263,11 @@ export default function CarDetails() {
                                         id="type2"
                                         type="radio"
                                         name="payment_type"
+                                        value="Mastercard"
+                                        checked={
+                                            order.payment_type === "Mastercard"
+                                        }
+                                        onChange={handleNewOrderChange}
                                     />
                                     <label htmlFor="type2">Mastercard</label>
                                 </li>
@@ -228,20 +276,28 @@ export default function CarDetails() {
                                         id="type3"
                                         type="radio"
                                         name="payment_type"
+                                        value="Paypal"
+                                        checked={
+                                            order.payment_type === "Paypal"
+                                        }
+                                        onChange={handleNewOrderChange}
                                     />
                                     <label htmlFor="type3">Paypal</label>
                                 </li>
                             </ul>
                         </div>
-                        <input
-                            type="hidden"
-                            name="product_id"
-                            value={carDetails.id}
-                        />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="btn-default" onClick={saveOrder}>Pay</button>
+                    <button
+                        className="btn-default"
+                        onClick={() => saveOrder(carDetails.id)}
+                    >
+                        Pay
+                    </button>
+
+                    {error && <ErrorMessage message={error} className="mt-3 w-100 font-size-14" />}
+                    {success && <SuccessMessage message={success} className="mt-3 w-100 font-size-14"/>}
                 </Modal.Footer>
             </Modal>
         </div>
