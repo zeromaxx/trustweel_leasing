@@ -112,10 +112,10 @@ function Fleet() {
                                 </div>
                                 <div className="footer-card">
                                     <div className="row align-items-center">
-                                        <div className="col-md-5">
+                                        <div className="col-5">
                                             <span>{car.price}€ /month</span>
                                         </div>
-                                        <div className="col-md-7">
+                                        <div className="col-7">
                                             <div className="d-flex align-items-center justify-content-end">
                                                 <div
                                                     className={

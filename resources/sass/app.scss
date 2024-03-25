@@ -114,6 +114,11 @@ input:focus {
     }
 
     .logo {
+        a {
+            @media (max-width: 768px) {
+                white-space: nowrap;
+            }
+        }
         .left {
             color: var(--main-color);
         }
@@ -122,6 +127,9 @@ input:focus {
         }
         span {
             font-size: 24px;
+            @media (max-width: 768px) {
+                font-size: 14px;
+            }
         }
     }
 
