@@ -186,7 +186,7 @@ function Fleet() {
                                                         overlay={
                                                             <Tooltip id="tooltip-top">
                                                                 Please log in to
-                                                                rent the car
+                                                                rent the vehicle
                                                             </Tooltip>
                                                         }
                                                     >

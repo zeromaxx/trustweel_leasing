@@ -14665,7 +14665,7 @@ function Fleet() {
                         placement: "top",
                         overlay: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
                           id: "tooltip-top",
-                          children: "Please log in to rent the car"
+                          children: "Please log in to rent the vehicle"
                         }),
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                           className: "btn-default btn-small",
