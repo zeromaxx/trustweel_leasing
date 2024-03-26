@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function Fleet() {
     const [cars, setCars] = useState([]);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         fetch("api/cars")
@@ -117,33 +119,84 @@ function Fleet() {
                                         </div>
                                         <div className="col-7">
                                             <div className="d-flex align-items-center justify-content-end">
-                                                <div
-                                                    className={
-                                                        car.isFavorited
-                                                            ? "car-favorite favourited"
-                                                            : "car-favorite"
-                                                    }
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleUserFavourite(
-                                                            car.id
-                                                        );
-                                                    }}
-                                                >
-                                                    <svg
-                                                        width="20"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 24 24"
+                                                {token ? (
+                                                    <div
+                                                        className={
+                                                            car.isFavorited
+                                                                ? "car-favorite favourited"
+                                                                : "car-favorite"
+                                                        }
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleUserFavourite(
+                                                                car.id
+                                                            );
+                                                        }}
                                                     >
-                                                        <path d="M20.16,5A6.29,6.29,0,0,0,12,4.36a6.27,6.27,0,0,0-8.16,9.48l6.21,6.22a2.78,2.78,0,0,0,3.9,0l6.21-6.22A6.27,6.27,0,0,0,20.16,5Zm-1.41,7.46-6.21,6.21a.76.76,0,0,1-1.08,0L5.25,12.43a4.29,4.29,0,0,1,0-6,4.27,4.27,0,0,1,6,0,1,1,0,0,0,1.42,0,4.27,4.27,0,0,1,6,0A4.29,4.29,0,0,1,18.75,12.43Z"></path>
-                                                    </svg>
-                                                </div>
-                                                <Link
-                                                    to={`/cars/${car.id}`}
-                                                    className="btn-default btn-small"
-                                                >
-                                                    Rent now
-                                                </Link>
+                                                        <OverlayTrigger
+                                                            placement="top"
+                                                            overlay={
+                                                                <Tooltip id="tooltip-top">
+                                                                    Click to
+                                                                    favorite
+                                                                </Tooltip>
+                                                            }
+                                                        >
+                                                            <svg
+                                                                width="20"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M20.16,5A6.29,6.29,0,0,0,12,4.36a6.27,6.27,0,0,0-8.16,9.48l6.21,6.22a2.78,2.78,0,0,0,3.9,0l6.21-6.22A6.27,6.27,0,0,0,20.16,5Zm-1.41,7.46-6.21,6.21a.76.76,0,0,1-1.08,0L5.25,12.43a4.29,4.29,0,0,1,0-6,4.27,4.27,0,0,1,6,0,1,1,0,0,0,1.42,0,4.27,4.27,0,0,1,6,0A4.29,4.29,0,0,1,18.75,12.43Z"></path>
+                                                            </svg>
+                                                        </OverlayTrigger>
+                                                    </div>
+                                                ) : (
+                                                    <OverlayTrigger
+                                                        placement="top"
+                                                        overlay={
+                                                            <Tooltip id="tooltip-top">
+                                                                Please log in to
+                                                                favorite the
+                                                                vehicle
+                                                            </Tooltip>
+                                                        }
+                                                    >
+                                                        <div className="car-favorite">
+                                                            <svg
+                                                                width="20"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M20.16,5A6.29,6.29,0,0,0,12,4.36a6.27,6.27,0,0,0-8.16,9.48l6.21,6.22a2.78,2.78,0,0,0,3.9,0l6.21-6.22A6.27,6.27,0,0,0,20.16,5Zm-1.41,7.46-6.21,6.21a.76.76,0,0,1-1.08,0L5.25,12.43a4.29,4.29,0,0,1,0-6,4.27,4.27,0,0,1,6,0,1,1,0,0,0,1.42,0,4.27,4.27,0,0,1,6,0A4.29,4.29,0,0,1,18.75,12.43Z"></path>
+                                                            </svg>
+                                                        </div>
+                                                    </OverlayTrigger>
+                                                )}
+                                                {token ? (
+                                                    <Link
+                                                        to={`/cars/${car.id}`}
+                                                        className="btn-default btn-small"
+                                                    >
+                                                        Rent now
+                                                    </Link>
+                                                ) : (
+                                                    <OverlayTrigger
+                                                        placement="top"
+                                                        overlay={
+                                                            <Tooltip id="tooltip-top">
+                                                                Please log in to
+                                                                rent the car
+                                                            </Tooltip>
+                                                        }
+                                                    >
+                                                        <div className="btn-default btn-small">
+                                                            <span>
+                                                                Rent now
+                                                            </span>
+                                                        </div>
+                                                    </OverlayTrigger>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
