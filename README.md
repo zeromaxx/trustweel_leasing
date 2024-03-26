@@ -1,22 +1,21 @@
-Fluffy Paw: A Comprehensive Veterinary Appointment Platform
+Trustweel Leasing: A Simplified Car Leasing Web Platform
 
-Fluffy Paw is a user-friendly digital platform tailored for seamless veterinary appointments. Catering to various user roles, the system ensures a streamlined process for both pet owners and clinic staff.
+User Features:
 
-Users (Pet Owners):
-    Book an appointment with ease.
-    View and manage their appointments: reschedule, modify timings, or cancel if necessary.
+Login System: Users can create a personal account for a secure and personalized experience.
+Car Rental: A straightforward process to browse and lease vehicles, tailored to user preferences and needs.
+Order History: Easy access to view past orders, helping users track their leasing history and manage ongoing rentals.
+Favorites: Allows users to mark and revisit their preferred vehicles for future leases.
 
-Secretary:
-    Oversee and manage all appointments: confirm bookings, make necessary adjustments, or delete them as required.
-     Access their schedule to view upcoming appointments.
-     Review detailed patient records, ensuring they are well-informed before each session.
-     Log pet examinations, maintaining a thorough record for future reference.
+Administrator Features:
 
-Doctors:
+Admin Dashboard: A centralized hub for administrators to manage the vehicle fleet and user interactions.
+Vehicle Management: Tools to add, edit, or remove vehicles from the platform, ensuring the vehicle listings are up-to-date and meet user demand.
+Real-Time Updates: Capability for admins to instantly update vehicle details and availability, reflecting changes directly to the users.
     
 
 <h3>Technologies:</h3>
-    <p>Laravel, Html, Bootstrap, Jquery, Javascript, Php Sql</p>
+    <p>React, Laravel, Scss, Bootstrap, Html, Sql</p>
 
 <h4>Homepage</h4>
 
