@@ -1,4 +1,4 @@
-Trustweel Leasing: A Simplified Car Leasing Web Platform
+<b>Trustweel Leasing:</b> A Simplified Car Leasing Web Platform
 
 User Features:
 
@@ -31,27 +31,44 @@ Real-Time Updates: Capability for admins to instantly update vehicle details and
 <br/>
 <hr/>
 
-<h4>Users can book an appointment with the clinic.</h4>
+<h4>Login</h4>
 
-![My Image](!screenshots/create_appointment.png)
-
-<br/>
-<hr/>
-
-<h4>Users can see their appointments, edit the hours of the appointment, or cancel it all together.</h4>
-
-![My Image](!screenshots/user_appointments.png)
+![My Image](!screenshots/login.png)
 
 <br/>
 <hr/>
 
-<h4>Secretary role can confirm, edit or delete appointments</h4>
+<h4>About</h4>
 
-![My Image](!screenshots/secretary_appointments.png)
+![My Image](!screenshots/about.png)
 
 <br/>
 <hr/>
 
-<h4>Doctor role can check their upcoming appointments, view patient records and insert a pet examination if needed.</h4>
+<h4>Contact</h4>
 
-![My Image](!screenshots/doctor_appointments.png)
+![My Image](!screenshots/contact.png)
+
+<br/>
+<hr/>
+
+<h4>Favourite List</h4>
+
+![My Image](!screenshots/favourite.png)
+
+<br/>
+<hr/>
+
+<h4>Orders</h4>
+
+![My Image](!screenshots/orders.png)
+
+<br/>
+<hr/>
+
+<h4>Admin Dashboard</h4>
+
+![My Image](!screenshots/dashboard.png)
+
+<br/>
+<hr/>
