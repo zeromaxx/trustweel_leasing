@@ -113,7 +113,6 @@ class AppController extends Controller
                 'space' => 'required|string|max:255',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
-                'image' => 'required',
             ]);
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->validator->errors()->first()], 422);
