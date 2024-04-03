@@ -256,12 +256,12 @@ class AppController extends Controller
                 'token' => $token,
                 'role' => $role,
             ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'The provided credentials do not match our records.',
+            ], 401);
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'The provided credentials do not match our records.',
-        ], 401);
     }
 
     public function logout(Request $request)
